@@ -17,7 +17,11 @@ All robot data can be analysed in Robodash-desktop and Robodash-browser. Robodas
 CyclonJS-HTTP-API is utilised by the frontend (Robodash-desktop and Robodash-browser).
 
 *External Events:*
-Robodash-core subscribes to an external global message queue (RabbitMQ) (1 queue per data source type e.g. iridiunm queue, lorawan queue). On receipt of a new message Robodash-core checks the origin and type of the message and checks if any users have requested processing of events from that origin.
+Robodash-core subscribes to an external global message queue (RabbitMQ / CloudAMQP) (1 queue per data source type e.g. iridiunm queue, lorawan queue). On receipt of a new message Robodash-core checks the origin and type of the message and checks if any users have requested processing of events from that origin.
+
+
+
+
 
 ##Architecture:
 Robodash core utilises CyclonJS for robot interaction and control. If a robot supports a hardware connection, CyclonJS can provide access to the data going over the connection and must call a robodash-core method to store any data. Examples are BLE characteristic read/notify/write.
