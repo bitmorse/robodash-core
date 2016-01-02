@@ -32,7 +32,7 @@ Events that happen while Robodash-core is not running on the users computer (Rob
 
 One CouchDB database per user. One document per data emitting device (storage). One document for all robots.
 
-Events: The Robodash-core server (when user is not online with Robodash-desktop) provides a socketIO endpoint where events can be sent to. (i.e. LoRaWAN gateway sends packets to this endpoint).
+Events: The Robodash-core server (when user is not online with Robodash-desktop) provides a socketIO endpoint where external events and data can be sent to. (i.e. LoRaWAN gateway sends packets to this endpoint). This endpoint is disabled when robodash-core is run on desktop.
 
 
 
