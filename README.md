@@ -11,7 +11,7 @@ Robodash-core can send direct commands (e.g. "drive to X") to be executed immedi
 Robodash-core stores the incoming robot data locally (PouchDB) but can be synchronised to the cloud (CouchDB). It stores the outgoing robot commands in an auditable log. Stored data is dynamically fed back to CyclonJS which exposes new robots/events/devices.
 
 *Analysis:*
-All robot data can be analysed in Robodash-desktop and Robodash-browser. Robodash-core only acts as a data provider.
+All robot data can be analysed in Robodash-desktop and Robodash-browser. Robodash-core only acts as a data provider and external event handle.
 
 *API:*
 CyclonJS-HTTP-API is utilised by the frontend (Robodash-desktop and Robodash-browser).
@@ -36,7 +36,7 @@ One CouchDB database per user. One document per data emitting device (storage). 
 
 Events: The Robodash-core provides a data ingest endpoints for LoRaWAN packet forwarders, Iridium and other providers, where external events and data can be sent to. (i.e. LoRaWAN gateway sends packets to this endpoint). This endpoint has access to the couchdb and writes to the appropriate location after processing of data. With live sync, the changes are instantly visible in the Robodash-desktop client.
 
-Replication: CouchDB replication is unidirectional (source -> target), thus two replication must be made. Changes include new documents, changed documents, and deleted documents. Documents that already exist on the target in the same revision are not transferred; only newer revisions are. 
+Replication: CouchDB replication is unidirectional (source -> target), thus two replications must be made. Changes include new documents, changed documents, and deleted documents. Documents that already exist on the target in the same revision are not transferred; only newer revisions are. 
 
 
 
