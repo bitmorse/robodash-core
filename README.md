@@ -32,11 +32,9 @@ Events that happen while Robodash-core is not running on the users computer (Rob
 
 One CouchDB database per user. One document per data emitting device (storage). One document for all robots.
 
-Events: The Robodash-core server (when user is not online with Robodash-desktop) provides a socketIO endpoint where external events and data can be sent to. (i.e. LoRaWAN gateway sends packets to this endpoint). This endpoint is disabled when robodash-core is run on desktop.
+Events: The Robodash-core provides a data ingest endpoints for LoRaWAN packet forwarders, Iridium and other providers, where external events and data can be sent to. (i.e. LoRaWAN gateway sends packets to this endpoint). This endpoint has access to the couchdb and writes to the appropriate location after processing of data. With live sync, the changes are instantly visible in the Robodash-desktop client.
 
-
-
-
+Replication: CouchDB replication is unidirectional (source -> target), thus two replication must be made. Changes include new documents, changed documents, and deleted documents. Documents that already exist on the target in the same revision are not transferred; only newer revisions are. 
 
 
 
