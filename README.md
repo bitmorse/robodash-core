@@ -1,5 +1,33 @@
 # robodash-core
 
+Install by cloning this repo into ´/opt´ and then running ´npm install´. Make sure upstart is installed. Place the following script into ´/etc/init/robodash.conf´ and use sudo start robodash-core to start the api server. 
+
+´ #!upstart
+description "robodash-core server"
+author      "sam"
+
+start on startup
+stop on shutdown
+
+script
+    export HOME="/opt/robodash-core"
+
+    echo $$ > /var/run/robodash-core.pid
+    exec sudo -u sam npm start >> /var/log/robodash-core.log 2>&1
+end script
+
+pre-start script
+    # Date format same as (new Date()).toISOString() for consistency
+    echo "[`date -u +%Y-%m-%dT%T.%3NZ`] (sys) Starting" >> /var/log/robodash-core.log
+end script
+
+pre-stop script
+    rm /var/run/robodash-core.pid
+    echo "[`date -u +%Y-%m-%dT%T.%3NZ`] (sys) Stopping" >> /var/log/robodash-core.log
+end script
+´
+
+
 ##Highlevel description:
 
 Robodash-core provides an API to interact with a robot that has a network adapter (LoRaWAN, BLE, WiFi) and is connected to the computer running Robodash-core. 
