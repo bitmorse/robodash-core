@@ -46,7 +46,7 @@ router.post('/users', function(req, res) {
   pass = req.body.password,
   uuid = req.body.uuid;
 
-  var privateDb = new PouchDB('https://sync.robodash.io/robodash-user%2F'+uuid, {skipSetup: true});
+  var privateDb = new PouchDB('https://sync.robodash.io/robodash-user%2F'+uuid);
   privateDb.signUp(username, pass, {metadata: {email: email, uuid: uuid}, ajax: ajaxOpts.ajax}).then(()=>{
     
 	
