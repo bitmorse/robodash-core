@@ -46,7 +46,7 @@ router.post('/users', function(req, res) {
   pass = req.body.password,
   uuid = req.body.uuid;
 
-  publicDb.signUp(email, pass, {metadata: {username: username, uuid: uuid}, ajax: ajaxOpts.ajax}).then(()=>{
+  publicDb.signUp(username, pass, {metadata: {email: email, uuid: uuid}, ajax: ajaxOpts.ajax}).then(()=>{
     res.json({ message: 'success' });
   }).catch((err)=>{
     res.json({ message: 'signup_error' });
