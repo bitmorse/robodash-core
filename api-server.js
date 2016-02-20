@@ -22,7 +22,7 @@ var publicDb = new PouchDB('https://sync.robodash.io/robodash-public%2Fmeta', {s
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-var port = process.env.PORT || 8989;        // set our port
+var port = process.env.PORT || 8050;        // set our port
 
 // ROUTES FOR OUR API
 // =============================================================================
