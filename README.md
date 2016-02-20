@@ -1,8 +1,8 @@
 # robodash-core
 
-Install by cloning this repo into ´/opt´ and then running ´npm install´. Make sure upstart is installed. Place the following script into ´/etc/init/robodash.conf´ and use sudo start robodash-core to start the api server. 
+Install by cloning this repo into `/opt` and then running `npm install`. Make sure upstart is installed. Place the following script into `/etc/init/robodash.conf` and use sudo start robodash-core to start the api server. 
 
-´ #!upstart
+```#!upstart
 description "robodash-core server"
 author      "sam"
 
@@ -25,7 +25,7 @@ pre-stop script
     rm /var/run/robodash-core.pid
     echo "[`date -u +%Y-%m-%dT%T.%3NZ`] (sys) Stopping" >> /var/log/robodash-core.log
 end script
-´
+```
 
 
 ##Highlevel description:
