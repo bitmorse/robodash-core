@@ -51,7 +51,7 @@ router.post('/users', function(req, res) {
 
   var privateDb = new PouchDB('https://sync.robodash.io/robodash-user%2F'+uuid, {ajax: ajaxOpts.ajax});
 
-  privateDb.signUp(email, pass, {metadata: {email: email, uuid: uuid}, ajax: ajaxOpts.ajax}).then(()=>{
+  privateDb.signUp(email, pass, {metadata: {username: username, uuid: uuid}, ajax: ajaxOpts.ajax}).then(()=>{
 
     var securityDocOpts = {
       method: 'PUT',
