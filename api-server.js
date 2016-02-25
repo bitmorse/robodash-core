@@ -3,8 +3,10 @@ var btoa    = require('btoa');
 var app        = express();                 // define our app using express
 var bodyParser = require('body-parser');
 var PouchDB = require('pouchdb');
+var request = require('request');
 
 PouchDB.plugin(require('pouchdb-authentication'));
+PouchDB.debug.enable('*');
 
 var ajaxOpts = {
   ajax: {
@@ -15,6 +17,7 @@ var ajaxOpts = {
 };
 
 var publicDb = new PouchDB('https://sync.robodash.io/robodash-public%2Fmeta', {skipSetup: true});
+
 
 
 // configure app to use bodyParser()
@@ -46,12 +49,39 @@ router.post('/users', function(req, res) {
   pass = req.body.password,
   uuid = req.body.uuid;
 
-  var privateDb = new PouchDB('https://sync.robodash.io/robodash-user%2F'+uuid);
+  var privateDb = new PouchDB('https://sync.robodash.io/robodash-user%2F'+uuid, {ajax: ajaxOpts.ajax});
+
   privateDb.signUp(username, pass, {metadata: {email: email, uuid: uuid}, ajax: ajaxOpts.ajax}).then(()=>{
-    
-	
-    res.json({ message: 'success' });
+
+    var securityDocOpts = {
+      method: 'PUT',
+      url: 'https://sync.robodash.io/robodash-user%2F'+uuid+'/_security',
+      headers: ajaxOpts.ajax.headers,
+      json: {
+            	"admins": {
+            		"names": [username],
+            		"roles": []
+            	},
+            	"members": {
+            		"names": [],
+            		"roles": []
+            	}
+            }
+    };
+
+
+    privateDb.info().then(function (info) {
+      request(securityDocOpts,
+          function (error, response, body) {
+              if(error === null){
+                res.json({ message: 'success' });
+              }
+          }
+      );
+    });
+
   }).catch((err)=>{
+    console.log(err);
     res.json({ message: 'signup_error' });
   });
 
